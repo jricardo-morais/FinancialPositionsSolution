@@ -1,0 +1,22 @@
+@FinancialPositions.Api_HostAddress = http://localhost:5223
+@clientId = sample-client-1
+
+### Get Top 10 Positions
+GET {{FinancialPositions.Api_HostAddress}}/api/positions/top10
+Accept: application/json
+
+###
+
+### Get Latest Positions By Client
+# Replace {{clientId}} with a real client identifier
+GET {{FinancialPositions.Api_HostAddress}}/api/positions/client/{{clientId}}
+Accept: application/json
+
+###
+
+### Get Positions Summary By Client
+# Replace {{clientId}} with a real client identifier
+GET {{FinancialPositions.Api_HostAddress}}/api/positions/client/{{clientId}}/summary
+Accept: application/json
+
+###

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=financial_positions
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  console-app:
+    build:
+      context: .
+      dockerfile: FinancialPositions.ConsoleApp/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=financial_positions;Username=user;Password=password
+      - ApiSettings__Url=https://api.andbank.com.br/candidate/positions
+      - ApiSettings__ApiKey=9MsyhgyioqtMLUiUFRNm
+
+  api:
+    build:
+      context: .
+      dockerfile: FinancialPositions.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=financial_positions;Username=user;Password=password
+
+volumes:
+  postgres_data:
