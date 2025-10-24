@@ -1,7 +1,5 @@
 using FinancialPositions.Domain.Entities;
 using FinancialPositions.Infrastructure.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FinancialPositions.Application.Services
 {

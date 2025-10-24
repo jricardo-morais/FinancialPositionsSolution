@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinancialPositions.Infrastructure.Migrations
 {
     [DbContext(typeof(AndbankContext))]
-    [Migration("20251023161735_InitialCreate")]
+    [Migration("20251024175806_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -41,10 +41,10 @@ namespace FinancialPositions.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Quantity")
+                    b.Property<decimal?>("Quantity")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("Value")
+                    b.Property<decimal?>("Value")
                         .HasColumnType("numeric");
 
                     b.HasKey("PositionId", "Date");

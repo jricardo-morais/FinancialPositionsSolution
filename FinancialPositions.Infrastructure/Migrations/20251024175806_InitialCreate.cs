@@ -19,8 +19,8 @@ namespace FinancialPositions.Infrastructure.Migrations
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     ProductId = table.Column<string>(type: "text", nullable: false),
                     ClientId = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<decimal>(type: "numeric", nullable: false),
-                    Quantity = table.Column<decimal>(type: "numeric", nullable: false)
+                    Value = table.Column<decimal>(type: "numeric", nullable: true),
+                    Quantity = table.Column<decimal>(type: "numeric", nullable: true)
                 },
                 constraints: table =>
                 {

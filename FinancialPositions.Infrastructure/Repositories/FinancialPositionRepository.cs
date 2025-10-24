@@ -50,11 +50,6 @@ namespace FinancialPositions.Infrastructure.Repositories
         {
             var positions = _context.Positions.Where(p => p.ClientId == clientId).AsQueryable();
 
-            if (!positions.Any())
-            {
-                return Enumerable.Empty<FinancialPosition>().AsQueryable();
-            }
-
             //Obtem as ultimas posicoes agrupadas pelo positionId e ordenando por data  
             var lastPositions = positions
                 .GroupBy(p => p.PositionId)

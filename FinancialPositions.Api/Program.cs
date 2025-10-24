@@ -1,7 +1,7 @@
+using FinancialPositions.Application.Services;
 using FinancialPositions.Infrastructure.AppContext;
 using FinancialPositions.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AndbankContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register the repository
+// Register the FinancialPositionService
 builder.Services.AddScoped<IFinancialPositionRepository, FinancialPositionRepository>();
+builder.Services.AddScoped<IFinancialPositionService, FinancialPositionService>();
 
 var app = builder.Build();
 

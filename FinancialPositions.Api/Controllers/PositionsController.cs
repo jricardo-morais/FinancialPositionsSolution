@@ -1,5 +1,5 @@
+using FinancialPositions.Application.Services;
 using FinancialPositions.Domain.Entities;
-using FinancialPositions.Infrastructure.Repositories; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialPositions.Api.Controllers
@@ -8,17 +8,17 @@ namespace FinancialPositions.Api.Controllers
     [Route("api/[controller]")]
     public class PositionsController : ControllerBase
     {
-        private readonly IFinancialPositionRepository _repository;
+        private readonly IFinancialPositionService _service;
 
-        public PositionsController(IFinancialPositionRepository repository) 
+        public PositionsController(IFinancialPositionService service) 
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet("client/{clientId}")]
         public async Task<ActionResult<IEnumerable<FinancialPosition>>> GetLatestPositionsByClient(string clientId)
         {
-            var latestPositions = await _repository.GetLatestPositionsByClientAsync(clientId);
+            var latestPositions = await _service.GetLatestPositionsByClientAsync(clientId);
 
             if (!latestPositions.Any())
             {
@@ -31,7 +31,7 @@ namespace FinancialPositions.Api.Controllers
         [HttpGet("client/{clientId}/summary")]
         public async Task<ActionResult<IEnumerable<ProductSummary>>> GetPositionsSummaryByClient(string clientId)
         {
-            var summary = await _repository.GetPositionsSummaryByClientAsync(clientId);
+            var summary = await _service.GetPositionsSummaryByClientAsync(clientId);
 
             if (!summary.Any())
             {
@@ -44,7 +44,7 @@ namespace FinancialPositions.Api.Controllers
         [HttpGet("top10")]
         public async Task<ActionResult<IEnumerable<FinancialPosition>>> GetTop10Positions()
         {
-            var top10Positions = await _repository.GetTop10PositionsAsync();
+            var top10Positions = await _service.GetTop10PositionsAsync();
 
             if (!top10Positions.Any())
             {
